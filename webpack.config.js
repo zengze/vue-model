@@ -1,70 +1,76 @@
-var WebPack = require('webpack');
-var CommonsChunkPlugin = require("webpack/lib/optimize/CommonsChunkPlugin");
-var ExtractTextPlugin = require("extract-text-webpack-plugin");
-module.exports = {
-  //插件项
-  plugins: [
-    new CommonsChunkPlugin('common.js'),
-    new ExtractTextPlugin("common.css"),
-    // new WebPack.DefinePlugin({
-    //   "process.env": {
-    //     NODE_ENV: JSON.stringify("production")
-    //   }
-    // })
-  ],
-  entry: {
-    "index": "./src/entry/index.js"
-  },
-  output: {
-    path: 'public/dist',
-    filename: '[name].js'
-  },
-  module: {
-        loaders: [
-            // Load CSS files that are required in modules.
-            {
-                test: /\.css$/,
-                exclude: /node_modules/,
-                loader: ExtractTextPlugin.extract("style-loader", "css-loader")
-            },
-            // Load font files for font-awesome. It uses a trailing version
-            // number in the names when requiring so we have to accept them in
-            // our test regex.
-            {
-                test: /\.(eot|svg|ttf)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-                loader: "file-loader"
-            },
-            {
-                test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-                loader: "url-loader?limit=10000&minetype=application/font-woff"
-            },
-            {
-              test: /\.png$/, loader: "url-loader?limit=10000&mimetype=image/png"
-            },
-            {
-              test: /\.gif/, loader: "url-loader?limit=10000&mimetype=image/gif"
-            },
-            {
-              test: /\.jpg/, loader: "url-loader?limit=10000&mimetype=image/jpg"
-            },
-            {
-              test: /\.jpeg/, loader: "url-loader?limit=10000&mimetype=image/jpg"
-            },
-            // Process all JavaScript files as ECMAScript2015 along with
-            // accepting the JSX syntax used by React.
-            {
-                test: /\.jsx?$/,
-                exclude: /node_modules/,
-                loader: 'babel-loader',
-                query: {
-                    presets: ['react'],
-                },
+const path = require('path')
+const webpack = require('webpack')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+const IS_ENV = process.env.NODE_ENV == 'production'
 
+var plugins = []
+if (IS_ENV) { //生产环境
+    plugins.push(new webpack.DefinePlugin({
+        'process.env': { //设置成生产环境
+            NODE_ENV: '"production"'
+        }
+    }))
+}
+
+plugins.push(
+    new HtmlWebpackPlugin({ //根据模板插入css/js等生成最终HTML
+        filename: './index.html', //生成的html存放路径，相对于 path
+        template: './src/template/index.html', //html模板路径
+    })
+)
+
+module.exports = {
+    devServer: {
+      inline: true,
+      hot: true,
+      port: 5000,
+    },
+    plugins,
+    //编译入口文件
+    entry: {
+      'songmengyun': './src/songmengyun.js'
+    },
+    output: {
+        path: path.resolve(__dirname + '/dist'),
+        filename: '[name].js?[hash]' //编译后的文件名
+    },
+    module: {
+      rules: [
+            {
+                test: /\.js(x)*$/,
+                exclude: /^node_modules$/,
+                use: 'babel-loader'
             },
-            {  test: /\.json$/,
-                loader: 'json-loader'
+            {
+                test: /\.vue$/,
+                exclude: /^node_modules$/,
+                use: 'vue-loader'
+            },
+            {
+                test: /\.(css|less)/,
+                exclude: /^node_modules$/,
+                use: [
+                  "style-loader",
+                  "css-loader",
+                  "less-loader"
+                ]
+            },
+            {
+                test: /\.(png|jpg)$/,
+                exclude: /^node_modules$/,
+                use: 'url-loader?limit=2000&name=[name].[ext]' //注意后面那个limit的参数，当你图片大小小于这个限制的时候，会自动启用base64编码图片
+            },
+            {
+                test: /\.(eot|woff|svg|ttf|woff2|gif|appcache)(\?|$)/,
+                exclude: /^node_modules$/,
+                use: 'file-loader?name=[name].[ext]'
             }
         ]
+    },
+    resolve: {
+        extensions: ['.js', '.vue', '.jsx'], //后缀名自动补全
+        alias: {
+            vue: 'vue/dist/vue.js' //webpack打包时，需要设置别名
+        }
     }
-
-};
+}
