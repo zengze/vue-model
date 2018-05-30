@@ -15,7 +15,7 @@ if (IS_ENV) { //生产环境
 plugins.push(
     new HtmlWebpackPlugin({ //根据模板插入css/js等生成最终HTML
         filename: './index.html', //生成的html存放路径，相对于 path
-        template: './src/template/index.html', //html模板路径
+        template: './src/index.html', //html模板路径
     })
 )
 
@@ -24,14 +24,24 @@ module.exports = {
       inline: true,
       hot: true,
       port: 5000,
+      //代理
+      proxy: {
+        '/zz': {
+          target: 'http://localhost:8080/',
+          changeOrigin: true,
+          pathRewrite: {
+              '^/zz': ''
+          }
+        }
+      }
     },
     plugins,
     //编译入口文件
     entry: {
-      'songmengyun': './src/songmengyun.js'
+      'main': './src/main.js'
     },
     output: {
-        path: path.resolve(__dirname + '/dist'),
+        path: path.resolve(__dirname, './dist'),
         filename: '[name].js?[hash]' //编译后的文件名
     },
     module: {
@@ -68,9 +78,10 @@ module.exports = {
         ]
     },
     resolve: {
-        extensions: ['.js', '.vue', '.jsx'], //后缀名自动补全
+        extensions: ['.js', '.vue'], //后缀名自动补全
         alias: {
-            vue: 'vue/dist/vue.js' //webpack打包时，需要设置别名
+          '@': path.resolve(__dirname, './src'),
+          vue: 'vue/dist/vue.js' //webpack打包时，需要设置别名
         }
     }
 }
