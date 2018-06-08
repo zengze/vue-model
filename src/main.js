@@ -28,7 +28,9 @@ Vue.use(TableColumn)
 
 // 路由跳转之后操作
 router.afterEach(route => {
-  document.title = route.meta.title
+  if(route.meta.title) {
+    document.title = route.meta.title
+  }
 })
 
 //同步vuex和router

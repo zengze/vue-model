@@ -1,10 +1,31 @@
 <template>
   <div class="signBox">
-    <div class="top">电子邮箱 / 手机号</div>
-    <el-input class="top" v-model="account"></el-input>
-    <div class="top">密码</div>
-    <el-input class="top" type="password" v-model="password"> </el-input>
-    <el-button class="button" type="primary" @click="_login" :loading="loginLoading">{{ loginText }}</el-button>
+    <el-input
+      class="top"
+      prefix-icon="el-icon-info"
+      placeholder="账号 / 邮箱 / 手机号"
+      clearable
+      v-model="account">
+    </el-input>
+    <el-input
+      class="top"
+      type="password"
+      prefix-icon="el-icon-goods"
+      placeholder="密码"
+      v-model="password">
+    </el-input>
+    <el-button
+      class="button top"
+      type="primary"
+      @click="_login"
+      :loading="loginLoading">
+      {{ loginText }}
+    </el-button>
+    <div class="login-link top">
+      <router-link :to="{name: 'findPassword'}" target="_blank">忘记密码</router-link>
+      <router-link :to="{name: 'findAccount'}" target="_blank">忘记账号</router-link>
+      <router-link :to="{name: 'register'}" target="_blank">免费注册</router-link>
+    </div>
   </div>
 </template>
 
@@ -60,9 +81,12 @@
   }
   .button {
     width: 100%;
-    margin-top: 10px;
   }
-  .top {
-    margin-top: 10px;
+  .login-link {
+    text-align: right;
+  }
+  .login-link a {
+    color: #6c6c6c;
+    margin-right: 10px;
   }
 </style>
