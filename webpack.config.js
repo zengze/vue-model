@@ -27,7 +27,7 @@ module.exports = {
       //代理
       proxy: {
         '/zz': {
-          target: 'http://localhost:8080/',
+          target: 'http://localhost:5001/',
           changeOrigin: true,
           pathRewrite: {
               '^/zz': ''

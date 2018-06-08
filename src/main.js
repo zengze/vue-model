@@ -10,12 +10,20 @@ import {
   Input,
   Table,
   TableColumn,
+  Form,
+  FormItem,
+  Select,
+  Option,
 } from 'element-ui';
 
 Vue.use(Button)
 Vue.use(Input)
 Vue.use(Table)
 Vue.use(TableColumn)
+Vue.use(Form)
+Vue.use(FormItem)
+Vue.use(Select)
+Vue.use(Option)
 
 // 路由跳转之前操作
 // router.beforeEach((to, from, next) => {
