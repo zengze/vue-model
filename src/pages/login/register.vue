@@ -74,9 +74,6 @@
             { required: true, validator: validatePass2, trigger: 'blur' },
             { min: 6, max: 16, message: '长度在 6 到 16 个字符', trigger: 'blur' }
           ],
-          mobile: [
-            
-          ],
           email: [
             { type: 'email', message: '请输入正确的邮箱地址', trigger: ['blur', 'change'] }
           ]
@@ -96,7 +93,6 @@
                 self.submitText = '确定';
                 self.submitLoading = false;
                 let result = response.data;
-                console.log(result,'result');
                 if(result.success) {
                   alert(result.message);
                 } else {
