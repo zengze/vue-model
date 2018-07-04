@@ -13,12 +13,12 @@
       <el-form-item label="姓名">
         <el-input v-model="form.name"></el-input>
       </el-form-item>
-      <el-form-item label="手机" prop="mobile">
+      <!-- <el-form-item label="手机" prop="mobile">
         <el-input v-model="form.mobile"></el-input>
       </el-form-item>
       <el-form-item label="邮箱" prop="email">
         <el-input v-model="form.email"></el-input>
-      </el-form-item>
+      </el-form-item> -->
       <el-form-item>
         <el-button type="primary" @click="_onSubmit" :loading="submitLoading">{{ submitText }}</el-button>
       </el-form-item>
@@ -27,8 +27,8 @@
 </template>
 
 <script>
-  import axios from 'axios'
-  import qs from 'qs'
+  import axios from 'axios';
+  import qs from 'qs';
 
   export default {
     data() {
@@ -94,7 +94,10 @@
                 self.submitLoading = false;
                 let result = response.data;
                 if(result.success) {
-                  alert(result.message);
+                  self.$alert(result.message, {
+                    confirmButtonText: '确定',
+                    callback: () => self.$router.push('login')
+                  });
                 } else {
                   alert(result.message);
                 }

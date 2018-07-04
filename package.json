@@ -3,7 +3,8 @@
   "version": "0.1.0",
   "author": "zengze",
   "scripts": {
-    "dev": "webpack-dev-server --inline --hot --progress --colors"
+    "dev": "webpack-dev-server --inline --hot --progress --colors",
+    "start": "npm run dev"
   },
   "dependencies": {
     "axios": "^0.18.0",

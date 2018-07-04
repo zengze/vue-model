@@ -14,6 +14,7 @@ import {
   FormItem,
   Select,
   Option,
+  MessageBox,
 } from 'element-ui';
 
 Vue.use(Button)
@@ -24,6 +25,7 @@ Vue.use(Form)
 Vue.use(FormItem)
 Vue.use(Select)
 Vue.use(Option)
+Vue.prototype.$alert = MessageBox.alert;
 
 // 路由跳转之前操作
 // router.beforeEach((to, from, next) => {
