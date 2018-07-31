@@ -41,7 +41,7 @@ module.exports = {
       'main': './src/main.js'
     },
     output: {
-        path: path.resolve(__dirname, './dist'),
+        path: path.resolve(__dirname, './public/dist'),
         filename: '[name].js?[hash]' //编译后的文件名
     },
     module: {

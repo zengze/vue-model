@@ -32,6 +32,7 @@
 <script>
   import axios from 'axios'
   import qs from 'qs'
+
   export default {
     data() {
       return {
@@ -73,20 +74,3 @@
     }
   }
 </script>
-
-<style>
-  .signBox {
-    width: 350px;
-    margin: 0px auto;
-  }
-  .button {
-    width: 100%;
-  }
-  .login-link {
-    text-align: right;
-  }
-  .login-link a {
-    color: #6c6c6c;
-    margin-right: 10px;
-  }
-</style>
