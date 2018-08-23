@@ -11,7 +11,7 @@ export default new Router({
   routes: [
     loginRoutes,
     {
-      path: 'card',
+      path: '/card',
       meta: { title: '名片列表' },
       component: card,
     },

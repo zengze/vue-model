@@ -54,17 +54,16 @@
           password: this.password
         }
         let self = this;
-        axios.post('/zz/Porsche/CamcardPersonal/loginAndSplitCard', qs.stringify(params))
-        .then(function (response) {
+        axios.post('/zz/login/login', qs.stringify(params))
+        .then((response) => {
           if(response.status == 200) {
             self.loginText = '登录';
             self.loginLoading = false;
-            let items = response.data.items;
-            if(items.success) {
-              self.$store.commit('LOGIN_SUCCESS_DATA', {'tableData': items.resume})
+            let data = response.data;
+            if(data.success) {
               self.$router.push('card');
             } else {
-              alert(items.error);
+              alert(data.message);
             }
           }
         })
