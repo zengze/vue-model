@@ -4,6 +4,8 @@ import register from '@/pages/login/register'
 import findPassword from '@/pages/login/findPassword'
 import findAccount from '@/pages/login/findAccount'
 
+import otherTuling from '@/pages/login/other/tuling'
+
 export const loginRoutes = {
   path: '/login',
   component: index,
@@ -36,6 +38,12 @@ export const loginRoutes = {
       name: 'findAccount',
       meta: { title: '找回账号' },
       component: findAccount
+    },
+    {
+      path: 'other_tuling',
+      name: 'otherTuling',
+      meta: { title: '图灵机器人数据处理' },
+      component: otherTuling
     }
   ]
 }

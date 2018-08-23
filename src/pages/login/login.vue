@@ -25,6 +25,7 @@
       <router-link :to="{name: 'findPassword'}" target="_blank">忘记密码</router-link>
       <router-link :to="{name: 'findAccount'}" target="_blank">忘记账号</router-link>
       <router-link :to="{name: 'register'}" target="_blank">免费注册</router-link>
+      <router-link :to="{name: 'otherTuling'}" style="display: none;" target="_blank">图灵机器人数据处理</router-link>
     </div>
   </div>
 </template>
